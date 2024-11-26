@@ -234,12 +234,11 @@ section.best-sellers .product-slider .product {
 
 section.best-sellers .product-slider .product img {
     max-width: 40%;
-    max-height: 40%;
     object-fit: cover;
 }
 
 section.best-sellers .product-slider .product .product-picture {
-    aspect-ratio: 1 / 1;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
