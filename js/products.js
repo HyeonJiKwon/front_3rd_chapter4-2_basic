@@ -3,6 +3,24 @@ async function loadProducts() {
     const products = await response.json();
     displayProducts(products);  
 }
+// Intersection Observer 설정
+const observerOptions = {
+    root: null, // 뷰포트를 기준으로 함
+    rootMargin: '0px',
+    threshold: 0.1 // 이미지의 10%가 뷰포트에 들어오면 로드
+};
+
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            // data-src 값을 src에 할당하여 이미지 로드
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src'); // data-src 속성 제거
+            observer.unobserve(img); // Observer에서 이미지 제거
+        }
+    });
+}, observerOptions);
 
 function displayProducts(products) {
 
@@ -20,11 +38,17 @@ function displayProducts(products) {
         const pictureDiv = document.createElement('div');
         pictureDiv.classList.add('product-picture');
         const img = document.createElement('img');
-        img.src = product.image;
+        img.dataset.src = product.image; // data-src에 실제 이미지 URL 저장
         img.alt = `product: ${product.title}`;
-        img.width=250;
-        img.loading="lazy"
+        img.width = 250;
+        // 초기 src는 빈 값으로 설정
+        img.src = ''; 
         pictureDiv.appendChild(img);
+
+        // Observer에 이미지 등록
+        imageObserver.observe(img);
+        // Append pictureDiv to productElement
+        productElement.appendChild(pictureDiv);
 
         // Create the product info div
         const infoDiv = document.createElement('div');
