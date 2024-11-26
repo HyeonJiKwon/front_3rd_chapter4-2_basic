@@ -101,6 +101,7 @@ section.hero img {
     width: 100%;
     height: auto;
     filter: brightness(50%);
+    object-fit: cover;
 }
 
 /* section.hero img.desktop {
@@ -233,14 +234,17 @@ section.best-sellers .product-slider .product {
 
 section.best-sellers .product-slider .product img {
     max-width: 40%;
+    max-height: 40%;
+    object-fit: cover;
 }
 
 section.best-sellers .product-slider .product .product-picture {
-    height: 100%;
+    aspect-ratio: 1 / 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 section.best-sellers .product-slider .product.new::before {
